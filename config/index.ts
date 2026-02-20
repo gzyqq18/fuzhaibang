@@ -4,14 +4,12 @@ import dotenv from 'dotenv';
 import tailwindcss from '@tailwindcss/postcss';
 import { UnifiedViteWeappTailwindcssPlugin } from 'weapp-tailwindcss/vite';
 import { defineConfig, type UserConfigExport } from '@tarojs/cli';
-import type { PluginItem } from '@tarojs/taro/types/compile/config/project';
 
 // 加载环境变量
 dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
 import devConfig from './dev';
 import prodConfig from './prod';
-import pkg from '../package.json';
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'vite'>(async (merge, _env) => {
