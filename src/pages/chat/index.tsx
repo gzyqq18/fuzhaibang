@@ -63,6 +63,13 @@ const ChatPage: FC = () => {
 
   return (
     <View className="min-h-screen bg-gray-50">
+      <View className="bg-white px-4 py-4 border-b border-gray-100 flex items-center">
+        <View className="w-8 h-8 flex items-center justify-center" onClick={handleGoHome}>
+          <Text className="block text-xl text-gray-700">←</Text>
+        </View>
+        <Text className="block text-base font-semibold ml-2">回答</Text>
+      </View>
+
       <ScrollView className="h-screen" scrollY>
         <View className="p-4">
           <View className="mb-6">
@@ -78,7 +85,6 @@ const ChatPage: FC = () => {
             </View>
           ) : answer ? (
             <View className="mb-6">
-              <Text className="block text-sm text-gray-500 mb-2">AI 回答</Text>
               <View className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <Text className="block text-sm text-gray-700 leading-relaxed whitespace-pre-line">
                   {answer}
@@ -115,17 +121,6 @@ const ChatPage: FC = () => {
                   </View>
                 ))}
               </View>
-            </View>
-          )}
-
-          {!loading && (
-            <View className="mt-6">
-              <Button
-                className="w-full bg-blue-600 text-white rounded-lg py-3 font-medium"
-                onClick={handleGoHome}
-              >
-                返回首页
-              </Button>
             </View>
           )}
         </View>
