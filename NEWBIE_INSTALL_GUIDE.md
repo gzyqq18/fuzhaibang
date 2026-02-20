@@ -297,6 +297,27 @@ type package.json     # Windows
 
 ### 问题 1：提示"找不到 pnpm 命令"
 
+**Windows 用户**：
+**错误信息**：
+```
+pnpm : 无法将"pnpm"项识别为 cmdlet、函数、脚本文件或可运行程序的名称。
+```
+
+**解决方案**：
+1. 查看 **FIX_PNPM_NOT_FOUND.md** 快速修复指南
+2. 查看 **INSTALL_PNPM_WINDOWS.md** 详细安装教程
+3. 运行：
+   ```powershell
+   npm install -g pnpm
+   # 关闭并重新打开 PowerShell
+   pnpm --version
+   ```
+
+**Mac/Linux 用户**：
+```bash
+npm install -g pnpm
+```
+
 **原因**：pnpm 没有安装或没有添加到系统路径
 
 **解决方案**：

@@ -80,6 +80,11 @@
 - 📖 **新手详细教程**：`NEWBIE_INSTALL_GUIDE.md` - 手把手安装依赖完整教程
 - 🔍 **环境检查工具**：`check-setup.sh` - 一键检查环境配置是否正确
 
+### 问题修复文档
+- 🔧 **修复 pnpm 未安装**：`FIX_PNPM_NOT_FOUND.md` - Windows 用户快速修复 pnpm 未安装问题
+- 📘 **安装 pnpm 详解**：`INSTALL_PNPM_WINDOWS.md` - Windows 安装 pnpm 详细指南
+- 📦 **修复导入问题**：`FIX_IMPORT_ISSUE.md` - 快速修复抖音开发者工具导入问题
+
 ### 快速开始
 - 🚀 **快速开始指南**：`QUICKSTART.md` - 5 分钟快速部署抖音小程序
 - 📝 **详细操作指南**：`STEP_BY_STEP_GUIDE.md` - 依赖安装、项目编译、环境配置的具体命令

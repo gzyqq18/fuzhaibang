@@ -79,7 +79,23 @@ npm install -g pnpm && cd Desktop\projects && pnpm install
 
 ## 🐛 常见问题快速修复
 
-### ❌ 找不到 pnpm 命令
+### ❌ 找不到 pnpm 命令（Windows 用户）
+
+**错误信息**：
+```
+pnpm : 无法将"pnpm"项识别为 cmdlet、函数、脚本文件或可运行程序的名称。
+```
+
+**解决方案**：
+```powershell
+# 方法 1：使用 npm 安装
+npm install -g pnpm
+
+# 方法 2：查看详细教程
+# 参考：FIX_PNPM_NOT_FOUND.md
+```
+
+### ❌ 找不到 pnpm 命令（Mac/Linux 用户）
 
 ```bash
 npm install -g pnpm

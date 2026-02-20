@@ -141,6 +141,41 @@ pnpm build:ttapp
 
 打个比方：就像做饭需要食材一样，项目运行也需要这些"食材"（代码包）才能正常工作。
 
+### Q4: 什么是依赖？
+
+**A**: 依赖（Dependencies）是项目运行所需的各种工具包和库。
+
+打个比方：就像做饭需要食材一样，项目运行也需要这些"食材"（代码包）才能正常工作。
+
+### Q4+: 我遇到了 "pnpm 未安装" 错误怎么办？
+
+**A**: 这是 Windows 新手最常见的问题！
+
+**如果你是 Windows 用户**：
+- 📖 查看 **README_WINDOWS.md** - Windows 用户快速修复指南
+- 🔧 查看 **FIX_PNPM_NOT_FOUND.md** - 快速修复方案
+- 📘 查看 **INSTALL_PNPM_WINDOWS.md** - 详细安装教程
+
+**快速修复**：
+```powershell
+# 1. 检查 npm
+npm --version
+
+# 2. 安装 pnpm
+npm install -g pnpm
+
+# 3. 关闭并重新打开 PowerShell（重要！）
+
+# 4. 验证安装
+pnpm --version
+```
+
+**如果 npm 也没有安装**：
+1. 访问 https://nodejs.org/
+2. 下载并安装 Node.js LTS 版本
+3. 关闭并重新打开 PowerShell
+4. 再次运行上面的命令
+
 ### Q5: 我遇到了问题怎么办？
 
 **A**: 按以下步骤排查：
