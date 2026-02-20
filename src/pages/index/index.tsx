@@ -45,6 +45,15 @@ const IndexPage: FC = () => {
       setCategories(res.data.data || [])
     } catch (error) {
       console.error('加载分类失败:', error)
+      // Fallback：使用硬编码的分类数据
+      const fallbackCategories = [
+        { id: 1, name: '债务管理', icon: '💰', sort_order: 1 },
+        { id: 2, name: '心理疏导', icon: '🧠', sort_order: 2 },
+        { id: 3, name: '法律知识', icon: '⚖️', sort_order: 3 },
+        { id: 4, name: '资源导航', icon: '📋', sort_order: 4 }
+      ]
+      console.log('使用备用分类数据:', fallbackCategories)
+      setCategories(fallbackCategories)
     }
   }
 

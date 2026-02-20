@@ -28,6 +28,15 @@ const CategoryPage: FC = () => {
     if (!categoryId) return
 
     try {
+      // Fallback：分类名称映射
+      const categoryNames: Record<number, string> = {
+        1: '债务管理',
+        2: '心理疏导',
+        3: '法律知识',
+        4: '资源导航'
+      }
+      setCategoryName(categoryNames[categoryId] || '未知分类')
+
       const catRes = await Network.request({
         url: `/api/knowledge/categories`
       })
@@ -53,9 +62,12 @@ const CategoryPage: FC = () => {
       setContents(transformedContents)
     } catch (error) {
       console.error('加载内容失败:', error)
+      // 显示友好的提示
+      setContents([])
       Taro.showToast({
-        title: '加载失败，请重试',
-        icon: 'none'
+        title: '需要配置后端服务才能查看内容',
+        icon: 'none',
+        duration: 3000
       })
     }
   }, [categoryId, categoryName])
@@ -90,35 +102,47 @@ const CategoryPage: FC = () => {
 
         {/* 内容列表 */}
         <View className="p-4 space-y-3">
-          {contents.map((item) => (
-            <View
-              key={item.id}
-              className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 active:bg-gray-50"
-              onClick={() => handleContentClick(item.id)}
-            >
-              {/* 标题和标签 */}
-              <View className="flex justify-between items-start mb-2">
-                <Text className="block text-base font-semibold flex-1">{item.title}</Text>
-                {item.is_free && (
-                  <View className="bg-green-50 px-2 py-1 rounded ml-2">
-                    <Text className="block text-xs text-green-600">免费</Text>
+          {contents.length > 0 ? (
+            contents.map((item) => (
+              <View
+                key={item.id}
+                className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 active:bg-gray-50"
+                onClick={() => handleContentClick(item.id)}
+              >
+                {/* 标题和标签 */}
+                <View className="flex justify-between items-start mb-2">
+                  <Text className="block text-base font-semibold flex-1">{item.title}</Text>
+                  {item.is_free && (
+                    <View className="bg-green-50 px-2 py-1 rounded ml-2">
+                      <Text className="block text-xs text-green-600">免费</Text>
+                    </View>
+                  )}
+                </View>
+
+                {/* 预览内容 */}
+                <Text className="block text-sm text-gray-600 leading-relaxed mb-2">
+                  {item.preview}
+                </Text>
+
+                {/* 分类标签 */}
+                <View>
+                  <View className="bg-blue-50 px-2 py-1 rounded inline-block">
+                    <Text className="block text-xs text-blue-600">{item.category}</Text>
                   </View>
-                )}
-              </View>
-
-              {/* 预览内容 */}
-              <Text className="block text-sm text-gray-600 leading-relaxed mb-2">
-                {item.preview}
-              </Text>
-
-              {/* 分类标签 */}
-              <View>
-                <View className="bg-blue-50 px-2 py-1 rounded inline-block">
-                  <Text className="block text-xs text-blue-600">{item.category}</Text>
                 </View>
               </View>
+            ))
+          ) : (
+            <View className="flex flex-col items-center justify-center py-12">
+              <Text className="block text-4xl mb-4">📭</Text>
+              <Text className="block text-sm text-gray-600 text-center mb-2">
+                暂无内容或需要配置后端服务
+              </Text>
+              <Text className="block text-xs text-gray-400 text-center">
+                请查看网络配置指南了解详情
+              </Text>
             </View>
-          ))}
+          )}
         </View>
       </ScrollView>
     </View>
