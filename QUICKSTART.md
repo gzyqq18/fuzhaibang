@@ -67,6 +67,21 @@ pnpm start:dev
 
 ## 常见问题速查
 
+### ❌ 导入项目时提示"文件系统错误"？
+
+**快速修复**：
+```bash
+# 使用一键修复脚本
+./fix-import-issue.sh
+
+# 或手动修复
+rm -rf dist
+pnpm build:ttapp
+chmod -R 755 dist/
+```
+
+**详细排查**：查看 `TROUBLESHOOTING.md` 故障排查指南
+
 ### ❌ 白屏怎么办？
 
 ```bash
