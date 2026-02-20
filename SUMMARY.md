@@ -28,8 +28,11 @@
   - create: `server/src/health/health.module.ts`
   - create: `.env.local`
   - create: `DEPLOY_DOUCLOUD.md`
+  - create: `DOUYIN_DEV_GUIDE.md`
+  - create: `QUICKSTART.md`
   - edit: `config/index.ts`
   - edit: `server/src/app.module.ts`
+  - edit: `SUMMARY.md`
 - 关键修改:
   - **抖音小程序适配**：修改 `config/index.ts` 和 `project.config.json`，将项目从微信小程序配置改为抖音小程序兼容配置（使用 `weapp` 编译，AppID 为 `tt27f0514db990b96201`）。
   - **网络问题修复**：创建 `.env.local` 配置 `PROJECT_DOMAIN`，解决抖音开发者工具中的网络请求域名校验问题。
@@ -66,3 +69,72 @@
 - [ ] 数据库连接正常
 - [ ] 日志正常输出
 - [ ] 监控和告警配置完成
+
+## 文档导航
+
+### 快速开始
+- 🚀 **快速开始指南**：`QUICKSTART.md` - 5 分钟快速部署抖音小程序
+
+### 详细部署指南
+- 📱 **抖音开发者工具部署指南**：`DOUYIN_DEV_GUIDE.md`
+  - 抖音开发者工具安装和配置
+  - 项目导入和预览
+  - 热更新开发流程
+  - 上传和发布流程
+  - 常见问题排查
+  - 生产环境部署
+
+- ☁️ **抖音云部署指南**：`DEPLOY_DOUCLOUD.md`
+  - Docker 容器化配置
+  - 环境变量配置
+  - 健康检查接口
+  - 监控和告警
+  - 故障排查
+
+### 项目文档
+- 📄 **项目摘要**：`SUMMARY.md`（当前文档）
+- 📄 **完整 README**：`README.md`
+- 📄 **设计指南**：`design_guidelines.md`（如存在）
+
+### 配置文件
+- 📁 **抖音小程序配置**：`project.config.json`
+- 📁 **Taro 配置**：`config/index.ts`
+- 📁 **环境变量**：`.env.local`
+
+## 快速操作命令
+
+### 开发环境
+
+```bash
+# 启动开发环境（前端 + 后端）
+coze dev
+
+# 编译抖音小程序
+pnpm build:ttapp
+
+# 启动后端服务
+cd server && pnpm start:dev
+```
+
+### 生产构建
+
+```bash
+# 完整构建
+pnpm build
+
+# 仅构建后端
+cd server && pnpm build
+
+# 构建 Docker 镜像
+docker build -t fuzhaibang-backend:latest server/
+```
+
+### 代码检查
+
+```bash
+# ESLint 检查
+pnpm lint:build
+
+# TypeScript 检查
+pnpm tsc
+```
