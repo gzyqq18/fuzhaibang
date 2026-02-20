@@ -15,8 +15,9 @@ import pkg from '../package.json';
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'vite'>(async (merge, _env) => {
-  const isWeChatApp = process.env.TARO_ENV === 'weapp';
-  const outputRoot = isWeChatApp ? 'dist' : 'dist-web';
+  // 注意：Taro 4.1.9 使用 weapp 平台编译，生成的代码同时兼容抖音小程序
+  // 抖音小程序通过 project.config.json 中的 appid 来识别
+  const outputRoot = 'dist';
 
   const baseConfig: UserConfigExport<'vite'> = {
     projectName: 'coze-mini-program',
@@ -35,21 +36,9 @@ export default defineConfig<'vite'>(async (merge, _env) => {
     outputRoot,
     plugins: [
       '@tarojs/plugin-generator',
-      ...(process.env.TARO_APP_WEAPP_APPID
-        ? ([
-            [
-              '@tarojs/plugin-mini-ci',
-              {
-                version: pkg.version,
-                desc: pkg.description,
-                weapp: {
-                  appid: process.env.TARO_APP_WEAPP_APPID,
-                  privateKeyPath: 'key/private.appid.key',
-                },
-              },
-            ],
-          ] as PluginItem[])
-        : []),
+      // 注意：如需配置 CI 插件，请使用对应平台的插件
+      // 微信小程序：@tarojs/plugin-mini-ci
+      // 抖音小程序：需使用抖音开放平台的 CI 工具
     ],
     defineConstants: {
       PROJECT_DOMAIN: JSON.stringify(

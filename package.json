@@ -4,12 +4,14 @@
   "private": true,
   "description": "Coze Mini Program Application",
   "scripts": {
-    "build": "pnpm exec concurrently -n lint,tsc,web,weapp,server -c red,blue,green,yellow,magenta \"pnpm lint:build\" \"pnpm tsc\" \"pnpm build:web\" \"pnpm build:weapp\" \"pnpm build:server\"",
+    "build": "pnpm exec concurrently -n lint,tsc,web,weapp,server -c red,blue,green,yellow,magenta \"pnpm lint:build\" \"pnpm tsc\" \"pnpm build:web\" \"pnpm build:ttapp\" \"pnpm build:server\"",
     "build:server": "pnpm --filter server build",
+    "build:ttapp": "taro build --type weapp",
     "build:weapp": "taro build --type weapp",
     "build:web": "taro build --type h5",
     "dev": "pnpm exec concurrently -n web,server -c blue,green \"pnpm dev:web\" \"pnpm dev:server\"",
     "dev:server": "pnpm --filter server dev",
+    "dev:ttapp": "taro build --type weapp --watch",
     "dev:weapp": "taro build --type weapp --watch",
     "dev:web": "taro build --type h5 --watch",
     "preinstall": "npx only-allow pnpm",
@@ -18,6 +20,7 @@
     "lint:build": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
     "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
     "new": "taro new",
+    "preview:ttapp": "taro build --type weapp --preview",
     "preview:weapp": "taro build --type weapp --preview",
     "tsc": "npx tsc --noEmit --skipLibCheck"
   },

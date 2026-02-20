@@ -3,7 +3,6 @@
   "projectname": "coze-mini-program",
   "description": "负债人自救指南小程序",
   "appid": "tt27f0514db990b96201",
-  "comment": "请在抖音开放平台申请合法的 AppID，格式为 ttxxxxxx。申请后请将 appid 字段修改为您的真实 AppID。",
   "setting": {
     "urlCheck": true,
     "es6": false,
@@ -12,5 +11,12 @@
     "postcss": false,
     "minified": false
   },
-  "compileType": "miniprogram"
+  "compileType": "miniprogram",
+  "comment": "抖音小程序配置文件。注意：此配置文件同时兼容微信和抖音小程序，但实际平台由编译命令的 --type 参数决定。",
+  "platform": {
+    "ttapp": {
+      "appid": "tt27f0514db990b96201",
+      "name": "负债人自救指南"
+    }
+  }
 }
