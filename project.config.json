@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "coze-mini-program",
   "description": "负债人自救指南小程序",
-  "appid": "touristappid",
+  "appid": "tt27f0514db990b96201",
   "comment": "请在抖音开放平台申请合法的 AppID，格式为 ttxxxxxx。申请后请将 appid 字段修改为您的真实 AppID。",
   "setting": {
     "urlCheck": true,

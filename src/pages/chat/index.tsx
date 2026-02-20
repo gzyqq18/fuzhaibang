@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Button } from '@tarojs/components'
+import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import { Network } from '@/network'

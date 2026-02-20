@@ -58,6 +58,7 @@
     "@tarojs/plugin-generator": "4.1.9",
     "@tarojs/plugin-mini-ci": "^4.1.9",
     "@tarojs/vite-runner": "4.1.9",
+    "@types/dotenv": "^8.2.3",
     "@types/minimatch": "^5",
     "@types/react": "^18.0.0",
     "@vitejs/plugin-react": "^4.3.0",
