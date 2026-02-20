@@ -2,6 +2,15 @@
 
 这是一个基于 [Taro 4](https://docs.taro.zone/docs/) + [Nest.js](https://nestjs.com/) 的前后端分离项目，由扣子编程 CLI 创建。
 
+## 👋 新手入门
+
+如果你是第一次接触这个项目，或者对命令行操作不太熟悉，请从 **[新手入门指南](README_NEWBIE.md)** 开始！
+
+**快速链接**：
+- 🎯 [新手快速参考](NEWBIE_REFERENCE.md) - 5 分钟快速上手
+- 📖 [新手详细教程](NEWBIE_INSTALL_GUIDE.md) - 手把手安装依赖
+- 🔍 [环境检查工具](check-setup.sh) - 一键检查环境配置
+
 ## 技术栈
 
 - **整体框架**: Taro 4.1.9
