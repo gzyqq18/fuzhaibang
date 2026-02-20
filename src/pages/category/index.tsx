@@ -72,13 +72,21 @@ const CategoryPage: FC = () => {
     })
   }
 
+  const handleGoBack = () => {
+    Taro.navigateBack()
+  }
+
   return (
     <View className="min-h-screen bg-gray-50">
-      <ScrollView className="h-screen" scrollY>
-        {/* 分类标题 */}
-        <View className="bg-white p-4 border-b border-gray-100">
-          <Text className="block text-lg font-semibold">{categoryName}</Text>
+      {/* 返回按钮和分类标题 */}
+      <View className="bg-white px-4 py-4 border-b border-gray-100 flex items-center">
+        <View className="w-8 h-8 flex items-center justify-center" onClick={handleGoBack}>
+          <Text className="block text-xl text-gray-700">←</Text>
         </View>
+        <Text className="block text-base font-semibold ml-2">{categoryName}</Text>
+      </View>
+
+      <ScrollView className="h-screen" scrollY>
 
         {/* 内容列表 */}
         <View className="p-4 space-y-3">

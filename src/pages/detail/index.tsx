@@ -84,6 +84,10 @@ const DetailPage: FC = () => {
     setShowAdModal(false)
   }
 
+  const handleGoBack = () => {
+    Taro.navigateBack()
+  }
+
   if (!content) {
     return (
       <View className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -94,6 +98,14 @@ const DetailPage: FC = () => {
 
   return (
     <View className="min-h-screen bg-gray-50 pb-4">
+      {/* 返回按钮和标题 */}
+      <View className="bg-white px-4 py-4 border-b border-gray-100 flex items-center">
+        <View className="w-8 h-8 flex items-center justify-center" onClick={handleGoBack}>
+          <Text className="block text-xl text-gray-700">←</Text>
+        </View>
+        <Text className="block text-base font-semibold ml-2">内容详情</Text>
+      </View>
+
       <View className="bg-white rounded-xl m-4 p-4 shadow-sm border border-gray-100">
         <View className="mb-3">
           <View className="bg-blue-50 px-3 py-1 rounded-full inline-block">
