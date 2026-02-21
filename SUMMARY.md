@@ -83,6 +83,7 @@
 ### 问题修复文档
 - 🔧 **修复 pnpm 未安装**：`FIX_PNPM_NOT_FOUND.md` - Windows 用户快速修复 pnpm 未安装问题
 - 📘 **安装 pnpm 详解**：`INSTALL_PNPM_WINDOWS.md` - Windows 安装 pnpm 详细指南
+- 🔒 **脚本执行限制**：`FIX_POWERSHELL_POLICY.md` - 解决 PowerShell 脚本执行策略限制问题
 - 📁 **修复 dist 为空**：`FIX_EMPTY_DIST.md` - 修复 dist 文件夹没有文件的问题
 - 🔄 **dist 文件消失**：`FIX_DIST_DISAPPEARED.md` - dist 文件反复消失的问题及预防措施
 - 📦 **修复导入问题**：`FIX_IMPORT_ISSUE.md` - 快速修复抖音开发者工具导入问题

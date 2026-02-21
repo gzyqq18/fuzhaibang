@@ -188,3 +188,24 @@ pnpm install
 ---
 
 **现在试试看！按照上面的步骤操作，你一定能成功！** 💪🚀
+
+---
+
+## 🔧 额外问题：PowerShell 脚本执行限制
+
+### Q: 提示"无法加载文件 pnpm.ps1，因为在此系统上禁止运行脚本"？
+
+**A**: 这是 Windows PowerShell 的安全策略限制。
+
+**解决方案 1：使用 npm 代替 pnpm（推荐）**
+```powershell
+npm run build:ttapp
+```
+
+**解决方案 2：临时允许执行脚本**
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+pnpm build:ttapp
+```
+
+**详细教程**：查看 **FIX_POWERSHELL_POLICY.md**
