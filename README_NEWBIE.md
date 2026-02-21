@@ -45,6 +45,7 @@
 | 🎯 **NEWBIE_REFERENCE.md** | 5 分钟 | 所有新手 | 快速参考卡片，复制粘贴即可 |
 | 📖 **NEWBIE_INSTALL_GUIDE.md** | 15 分钟 | 完全新手 | 详细的手把手教程，包含每个步骤的解释 |
 | 🔍 **check-setup.sh** | 1 分钟 | 所有新手 | 一键检查环境配置是否正确 |
+| 💡 **WHAT_IS_NPM.md** | 10 分钟 | 所有新手 | 用生活中的比喻解释什么是 NPM |
 
 ### 快速开始文档
 
@@ -54,6 +55,15 @@
 | 📝 **STEP_BY_STEP_GUIDE.md** | 10 分钟 | 需要详细操作步骤 | 依赖安装、编译、环境配置的具体命令 |
 | 🔧 **TROUBLESHOOTING.md** | 10 分钟 | 遇到问题时 | 解决常见问题的详细指南 |
 | 🔨 **FIX_IMPORT_ISSUE.md** | 2 分钟 | 导入失败时 | 快速修复抖音开发者工具导入问题 |
+
+### Windows 专用文档
+
+| 文档 | 用时 | 适合人群 | 内容 |
+|------|------|----------|------|
+| 🪟 **README_WINDOWS.md** | 10 分钟 | Windows 用户 | Windows 用户快速修复指南 |
+| 🔧 **FIX_POWERSHELL_POLICY.md** | 2 分钟 | PowerShell 报错 | PowerShell 脚本限制修复 |
+| 📦 **USE_NPM.md** | 2 分钟 | pnpm 有问题 | 使用 NPM 代替 PNPM |
+| 📥 **INSTALL_PNPM_WINDOWS.md** | 5 分钟 | 想安装 pnpm | Windows 上安装 PNPM 教程 |
 
 ### 高级文档
 

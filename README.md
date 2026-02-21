@@ -10,6 +10,7 @@
 - 🎯 [新手快速参考](NEWBIE_REFERENCE.md) - 5 分钟快速上手
 - 📖 [新手详细教程](NEWBIE_INSTALL_GUIDE.md) - 手把手安装依赖
 - 🔍 [环境检查工具](check-setup.sh) - 一键检查环境配置
+- 💡 [什么是 NPM](WHAT_IS_NPM.md) - 用生活中的比喻解释包管理器
 
 ## 技术栈
 
