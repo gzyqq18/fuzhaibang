@@ -61,6 +61,7 @@
 | 文档 | 用时 | 适合人群 | 内容 |
 |------|------|----------|------|
 | 🪟 **README_WINDOWS.md** | 10 分钟 | Windows 用户 | Windows 用户快速修复指南 |
+- 🔧 **FIX_TARO_NOT_FOUND.md** | 5 分钟 | taro 命令未找到 | 解决 'taro' 不是内部或外部命令错误 |
 | 🔧 **FIX_POWERSHELL_POLICY.md** | 2 分钟 | PowerShell 报错 | PowerShell 脚本限制修复 |
 | 📦 **USE_NPM.md** | 2 分钟 | pnpm 有问题 | 使用 NPM 代替 PNPM |
 | 📥 **INSTALL_PNPM_WINDOWS.md** | 5 分钟 | 想安装 pnpm | Windows 上安装 PNPM 教程 |

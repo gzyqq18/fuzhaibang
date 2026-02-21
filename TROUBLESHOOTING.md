@@ -1,5 +1,19 @@
 # 抖音开发者工具导入问题排查指南
 
+## 🚀 快速导航
+
+### 常见问题快速修复
+
+| 问题 | 解决方案 | 详细文档 |
+|------|----------|----------|
+| 🔴 'taro' 不是内部或外部命令 | 安装依赖 | [FIX_TARO_NOT_FOUND.md](FIX_TARO_NOT_FOUND.md) |
+| 🔴 找不到 pnpm 命令 | 安装 pnpm | [FIX_PNPM_NOT_FOUND.md](FIX_PNPM_NOT_FOUND.md) |
+| 🔴 PowerShell 脚本限制 | 修改执行策略 | [FIX_POWERSHELL_POLICY.md](FIX_POWERSHELL_POLICY.md) |
+| 🔴 dist 文件夹为空 | 重新编译 | [FIX_EMPTY_DIST.md](FIX_EMPTY_DIST.md) |
+| 🔴 dist 文件反复消失 | 关闭预编译 | [FIX_DIST_DISAPPEARED.md](FIX_DIST_DISAPPEARED.md) |
+
+---
+
 ## 问题：文件系统错误：文件不存在或无权限访问
 
 这个错误通常由以下几个原因导致，请按顺序检查：

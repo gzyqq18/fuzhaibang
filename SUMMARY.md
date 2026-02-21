@@ -84,6 +84,7 @@
 - 🔍 **环境检查工具**：`check-setup.sh` - 一键检查环境配置是否正确
 
 ### 问题修复文档
+- 🔧 **修复 taro 命令未找到**：`FIX_TARO_NOT_FOUND.md` - 解决 'taro' 不是内部或外部命令错误
 - 🔧 **修复 pnpm 未安装**：`FIX_PNPM_NOT_FOUND.md` - Windows 用户快速修复 pnpm 未安装问题
 - 📘 **安装 pnpm 详解**：`INSTALL_PNPM_WINDOWS.md` - Windows 安装 pnpm 详细指南
 - 🔒 **脚本执行限制**：`FIX_POWERSHELL_POLICY.md` - 解决 PowerShell 脚本执行策略限制问题

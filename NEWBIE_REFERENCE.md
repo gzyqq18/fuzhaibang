@@ -95,6 +95,27 @@ npm install -g pnpm
 # 参考：FIX_PNPM_NOT_FOUND.md
 ```
 
+### ❌ taro 命令未找到
+
+**错误信息**：
+```
+'taro' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+```
+
+**原因**：项目依赖还没有安装
+
+**解决方案**：
+```powershell
+# 安装依赖
+pnpm install
+
+# 或使用 npm
+npm install
+
+# 详细教程：FIX_TARO_NOT_FOUND.md
+```
+
 ### ❌ 找不到 pnpm 命令（Mac/Linux 用户）
 
 ```bash
