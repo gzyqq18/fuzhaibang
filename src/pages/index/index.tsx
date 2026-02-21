@@ -1,14 +1,14 @@
 import { View, Text, ScrollView, Input, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Network } from '@/network'
 import type { FC } from 'react'
 
 interface Category {
   id: number
   name: string
   icon: string
-  color: string
-  count: number
+  sort_order: number
 }
 
 interface HotQuestion {
@@ -16,16 +16,9 @@ interface HotQuestion {
   question: string
 }
 
-// 内置分类数据
-const builtInCategories: Category[] = [
-  { id: 1, name: '债务管理', icon: '💰', color: 'blue', count: 3 },
-  { id: 2, name: '心理疏导', icon: '🧠', color: 'purple', count: 3 },
-  { id: 3, name: '法律知识', icon: '⚖️', color: 'green', count: 3 }
-]
-
 const IndexPage: FC = () => {
   const [searchText, setSearchText] = useState('')
-  const [categories] = useState<Category[]>(builtInCategories)
+  const [categories, setCategories] = useState<Category[]>([])
   const [quickTags] = useState([
     '信用卡逾期',
     '网贷处理',
@@ -38,6 +31,31 @@ const IndexPage: FC = () => {
     { id: 3, question: '免费法律援助哪里找？' },
     { id: 4, question: '债务重组的条件是什么？' }
   ])
+
+  useEffect(() => {
+    loadCategories()
+  }, [])
+
+  const loadCategories = async () => {
+    try {
+      const res = await Network.request({
+        url: '/api/knowledge/categories'
+      })
+      console.log('分类列表:', res.data.data)
+      setCategories(res.data.data || [])
+    } catch (error) {
+      console.error('加载分类失败:', error)
+      // Fallback：使用硬编码的分类数据
+      const fallbackCategories = [
+        { id: 1, name: '债务管理', icon: '💰', sort_order: 1 },
+        { id: 2, name: '心理疏导', icon: '🧠', sort_order: 2 },
+        { id: 3, name: '法律知识', icon: '⚖️', sort_order: 3 },
+        { id: 4, name: '资源导航', icon: '📋', sort_order: 4 }
+      ]
+      console.log('使用备用分类数据:', fallbackCategories)
+      setCategories(fallbackCategories)
+    }
+  }
 
   const handleSearch = () => {
     if (!searchText.trim()) {
