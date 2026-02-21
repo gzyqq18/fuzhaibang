@@ -27,6 +27,8 @@
   - create: `server/src/health/health.controller.ts`
   - create: `server/src/health/health.module.ts`
   - create: `.env.local`
+  - create: `AD_UNLOCK_FEATURE.md` - 强制看广告功能详细说明
+  - create: `TEST_AD_UNLOCK.md` - 广告功能测试指南
   - create: `DEPLOY_DOUCLOUD.md`
   - create: `DOUYIN_DEV_GUIDE.md`
   - create: `QUICKSTART.md`
