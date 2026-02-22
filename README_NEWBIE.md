@@ -72,6 +72,8 @@
 |------|----------|------|
 | 📱 **DOUYIN_DEV_GUIDE.md** | 有经验的开发者 | 详细的抖音开发者工具使用指南 |
 | ☁️ **DEPLOY_DOUCLOUD.md** | 运维人员 | 抖音云部署完整指南 |
+| 🚀 **DEPLOY_TO_PRODUCTION.md** | 部署人员 | 生产环境完整部署指南 |
+| ✅ **DEPLOY_CHECKLIST.md** | 部署人员 | 部署快速检查清单 |
 | 📄 **SUMMARY.md** | 所有人 | 项目摘要和完整文档导航 |
 
 ---
