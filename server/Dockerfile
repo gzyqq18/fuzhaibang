@@ -19,8 +19,8 @@ RUN pnpm install --frozen-lockfile
 # 显式安装 Alpine Linux (musl) 特定的 Taro binding 模块
 RUN pnpm add @tarojs/binding-linux-x64-musl --save-exact
 
-# 安装 NestJS CLI（构建需要）
-RUN npx @nestjs/cli@latest --version || pnpm add -g @nestjs/cli
+# 安装 NestJS CLI（使用兼容 Node 18 的版本）
+RUN pnpm add -D @nestjs/cli@10.4.9
 
 # 复制源代码
 COPY . .
