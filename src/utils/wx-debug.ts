@@ -6,15 +6,19 @@ import Taro from '@tarojs/taro'
  */
 export function enableWxDebugIfNeeded() {
   // 仅在微信小程序环境执行
+  // 抖音小程序不支持 getAccountInfoSync API
   if (Taro.getEnv() === Taro.ENV_TYPE.WEAPP) {
     try {
-      const accountInfo = Taro.getAccountInfoSync()
-      const envVersion = accountInfo.miniProgram.envVersion
-      console.log('[Debug] envVersion:', envVersion)
+      // 检查 API 是否存在
+      if (typeof Taro.getAccountInfoSync === 'function') {
+        const accountInfo = Taro.getAccountInfoSync()
+        const envVersion = accountInfo.miniProgram.envVersion
+        console.log('[Debug] envVersion:', envVersion)
 
-      // 开发版/体验版自动开启调试
-      if (envVersion !== 'release') {
-        Taro.setEnableDebug({ enableDebug: true })
+        // 开发版/体验版自动开启调试
+        if (envVersion !== 'release') {
+          Taro.setEnableDebug({ enableDebug: true })
+        }
       }
     } catch (error) {
       console.error('[Debug] 开启调试模式失败:', error)
