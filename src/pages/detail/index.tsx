@@ -58,7 +58,7 @@ const DetailPage: FC = () => {
     } finally {
       setIsPlayingAd(false)
     }
-  }, [contentId, userId])
+  }, [contentId, userId, loadContentDetail])
 
   const loadContentDetail = useCallback(async () => {
     if (!contentId) return

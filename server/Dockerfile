@@ -4,8 +4,9 @@ FROM node:18-alpine AS builder
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json
+# 复制所有 package.json 文件（包括 monorepo 子包）
 COPY package.json pnpm-lock.yaml* ./
+COPY server/package.json ./server/
 
 # 安装 pnpm
 RUN npm install -g pnpm
@@ -13,7 +14,7 @@ RUN npm install -g pnpm
 # 配置 npm 镜像源（使用淘宝镜像加速）
 RUN pnpm config set registry https://registry.npmmirror.com
 
-# 安装依赖
+# 安装所有依赖（包括 server 子包）
 RUN pnpm install --frozen-lockfile
 
 # 显式安装 Alpine Linux (musl) 特定的 Taro binding 模块
