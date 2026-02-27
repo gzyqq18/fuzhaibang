@@ -10,6 +10,9 @@ COPY package.json pnpm-lock.yaml* ./
 # 安装 pnpm
 RUN npm install -g pnpm
 
+# 配置 npm 镜像源（使用淘宝镜像加速）
+RUN pnpm config set registry https://registry.npmmirror.com
+
 # 安装依赖
 RUN pnpm install --frozen-lockfile
 
