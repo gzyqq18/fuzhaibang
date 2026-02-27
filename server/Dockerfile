@@ -22,6 +22,9 @@ RUN pnpm add @tarojs/binding-linux-x64-musl --save-exact
 # 安装 NestJS CLI（使用兼容 Node 18 的版本）
 RUN pnpm add -D @nestjs/cli@10.4.9
 
+# 确保 NestJS CLI 在全局可用（用于执行 nest build 命令）
+RUN npx @nestjs/cli@10.4.9 --version || pnpm add -g @nestjs/cli@10.4.9
+
 # 复制源代码
 COPY . .
 
