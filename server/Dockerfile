@@ -16,6 +16,12 @@ RUN pnpm config set registry https://registry.npmmirror.com
 # 安装依赖
 RUN pnpm install --frozen-lockfile
 
+# 显式安装 Alpine Linux (musl) 特定的 Taro binding 模块
+RUN pnpm add @tarojs/binding-linux-x64-musl --save-exact
+
+# 安装 NestJS CLI（构建需要）
+RUN npx @nestjs/cli@latest --version || pnpm add -g @nestjs/cli
+
 # 复制源代码
 COPY . .
 

@@ -89,7 +89,7 @@ const DetailPage: FC = () => {
         rewardedVideoAd.current.offClose()
       }
     }
-  }, [])
+  }, [handleUnlockSuccess])
 
   const loadContentDetail = useCallback(async () => {
     if (!contentId) return
@@ -109,6 +109,34 @@ const DetailPage: FC = () => {
       })
     }
   }, [contentId, userId])
+
+  const handleUnlockSuccess = useCallback(async () => {
+    if (!contentId) return
+
+    try {
+      const res = await Network.request({
+        url: '/api/knowledge/unlock',
+        method: 'POST',
+        data: { userId, contentId }
+      })
+
+      if (res.data.code === 200) {
+        Taro.showToast({
+          title: '解锁成功',
+          icon: 'success'
+        })
+        loadContentDetail()
+      }
+    } catch (error) {
+      console.error('解锁失败:', error)
+      Taro.showToast({
+        title: '解锁失败',
+        icon: 'none'
+      })
+    } finally {
+      setIsPlayingAd(false)
+    }
+  }, [contentId, userId, loadContentDetail])
 
   useEffect(() => {
     if (contentId) {
@@ -151,34 +179,6 @@ const DetailPage: FC = () => {
         title: '广告显示失败，请重试',
         icon: 'none'
       })
-    }
-  }
-
-  const handleUnlockSuccess = async () => {
-    if (!contentId) return
-
-    try {
-      const res = await Network.request({
-        url: '/api/knowledge/unlock',
-        method: 'POST',
-        data: { userId, contentId }
-      })
-
-      if (res.data.code === 200) {
-        Taro.showToast({
-          title: '解锁成功',
-          icon: 'success'
-        })
-        loadContentDetail()
-      }
-    } catch (error) {
-      console.error('解锁失败:', error)
-      Taro.showToast({
-        title: '解锁失败',
-        icon: 'none'
-      })
-    } finally {
-      setIsPlayingAd(false)
     }
   }
 
