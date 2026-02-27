@@ -31,6 +31,25 @@ const DetailPage: FC = () => {
     }
   })
 
+  const loadContentDetail = useCallback(async () => {
+    if (!contentId) return
+
+    try {
+      const res = await Network.request({
+        url: `/api/knowledge/contents/${contentId}`,
+        data: { userId }
+      })
+      console.log('内容详情:', res.data.data)
+      setContent(res.data.data)
+    } catch (error) {
+      console.error('加载内容失败:', error)
+      Taro.showToast({
+        title: '加载失败',
+        icon: 'none'
+      })
+    }
+  }, [contentId, userId])
+
   // 初始化激励视频广告
   const handleUnlockSuccess = useCallback(async () => {
     if (!contentId) return
@@ -59,25 +78,6 @@ const DetailPage: FC = () => {
       setIsPlayingAd(false)
     }
   }, [contentId, userId, loadContentDetail])
-
-  const loadContentDetail = useCallback(async () => {
-    if (!contentId) return
-
-    try {
-      const res = await Network.request({
-        url: `/api/knowledge/contents/${contentId}`,
-        data: { userId }
-      })
-      console.log('内容详情:', res.data.data)
-      setContent(res.data.data)
-    } catch (error) {
-      console.error('加载内容失败:', error)
-      Taro.showToast({
-        title: '加载失败',
-        icon: 'none'
-      })
-    }
-  }, [contentId, userId])
 
   useEffect(() => {
     const isWeapp = Taro.getEnv() === Taro.ENV_TYPE.WEAPP
