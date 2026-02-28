@@ -117,6 +117,9 @@ importers:
       concurrently:
         specifier: ^9.2.1
         version: 9.2.1
+      coze-coding-dev-sdk:
+        specifier: ^0.7.16
+        version: 0.7.16(openai@6.16.0(ws@8.19.0)(zod@4.3.5))(ws@8.19.0)
       drizzle-orm:
         specifier: ^0.45.1
         version: 0.45.1(@types/better-sqlite3@7.6.13)(better-sqlite3@11.10.0)(pg@8.17.2)

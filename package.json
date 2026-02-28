@@ -72,6 +72,7 @@
     "@types/react": "^18.0.0",
     "@vitejs/plugin-react": "^4.3.0",
     "babel-preset-taro": "4.1.9",
+    "coze-coding-dev-sdk": "^0.7.16",
     "concurrently": "^9.2.1",
     "drizzle-orm": "^0.45.1",
     "eslint": "^8.57.0",
