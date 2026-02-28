@@ -20,9 +20,10 @@ export namespace Network {
             return `${PROJECT_DOMAIN}${url}`
         }
 
-        // 在抖音云环境中，使用相对路径（小程序会自动处理）
-        // 警告：确保后端服务在同一域名下
-        console.warn('PROJECT_DOMAIN 未配置，使用相对路径，可能导致请求失败')
+        // 在抖音云环境中，使用相对路径
+        // 抖音小程序会自动将相对路径解析为当前小程序的域名
+        // 如果后端服务在同一域名下（/api 路由），相对路径会自动工作
+        console.log('使用相对路径:', url)
         return url
     }
 
