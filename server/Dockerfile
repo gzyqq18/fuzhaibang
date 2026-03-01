@@ -51,7 +51,10 @@ RUN echo '#!/bin/sh' > /app/run.sh && \
     echo '' >> /app/run.sh && \
     echo 'cd /app' >> /app/run.sh && \
     echo 'node dist/main.js' >> /app/run.sh && \
-    chmod +x /app/run.sh
+    chmod +x /app/run.sh && \
+    mkdir -p /opt/application && \
+    cp /app/run.sh /opt/application/run.sh && \
+    chmod +x /opt/application/run.sh
 
 # 创建非 root 用户
 RUN addgroup -g 1001 -S nodejs && \
