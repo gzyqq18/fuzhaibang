@@ -42,7 +42,8 @@ WORKDIR /app
 
 # 从构建阶段复制依赖和构建产物
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
+# 后端构建输出在 server/dist，复制到 dist
+COPY --from=builder /app/server/dist ./dist
 COPY --from=builder /app/package.json ./
 
 # 创建抖音云平台要求的启动脚本
