@@ -20,10 +20,23 @@ export namespace Network {
             return `${PROJECT_DOMAIN}${url}`
         }
 
-        // 在抖音云环境中，使用相对路径
-        // 抖音小程序会自动将相对路径解析为当前小程序的域名
-        // 如果后端服务在同一域名下（/api 路由），相对路径会自动工作
-        console.log('使用相对路径:', url)
+        // 在抖音云环境中，尝试自动获取当前域名
+        try {
+            // 获取当前小程序的域名
+            const pages = Taro.getCurrentPages()
+            if (pages.length > 0) {
+                const currentPage = pages[pages.length - 1]
+                // @ts-ignore - Taro 内部属性
+                const route = currentPage?.route || ''
+
+                // 从路由中提取基础 URL（如果有的话）
+                // 抖音小程序环境通常可以直接使用相对路径
+            }
+        } catch (e) {
+            // 忽略错误，使用默认相对路径
+        }
+
+        // 使用相对路径（抖音云会自动处理）
         return url
     }
 
@@ -36,6 +49,7 @@ export namespace Network {
             finalUrl,
             method: option.method || 'GET',
             data: option.data,
+            hasDomain: typeof PROJECT_DOMAIN !== 'undefined' && !!PROJECT_DOMAIN,
         })
 
         return Taro.request({
@@ -52,6 +66,7 @@ export namespace Network {
             url: option.url,
             finalUrl,
             name: option.name,
+            hasDomain: typeof PROJECT_DOMAIN !== 'undefined' && !!PROJECT_DOMAIN,
         })
 
         return Taro.uploadFile({
@@ -67,6 +82,7 @@ export namespace Network {
         console.log('Network.downloadFile:', {
             url: option.url,
             finalUrl,
+            hasDomain: typeof PROJECT_DOMAIN !== 'undefined' && !!PROJECT_DOMAIN,
         })
 
         return Taro.downloadFile({
