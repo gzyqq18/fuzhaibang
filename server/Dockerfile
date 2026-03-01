@@ -65,12 +65,12 @@ RUN addgroup -g 1001 -S nodejs && \
 # 切换到非 root 用户
 USER nodejs
 
-# 暴露端口
-EXPOSE 3000
+# 暴露端口（抖音云 FaaS 平台要求 8000 端口）
+EXPOSE 8000
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+  CMD node -e "require('http').get('http://localhost:8000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # 启动应用
 CMD ["node", "dist/main.js"]

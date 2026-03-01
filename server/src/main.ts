@@ -4,6 +4,15 @@ import * as express from 'express';
 import { HttpStatusInterceptor } from '@/interceptors/http-status.interceptor';
 
 function parsePort(): number {
+  // 优先从环境变量获取端口（抖音云等云平台使用）
+  const envPort = process.env.PORT || process.env.FUNCTION_PORT;
+  if (envPort) {
+    const port = parseInt(envPort, 10);
+    if (!isNaN(port) && port > 0 && port < 65536) {
+      return port;
+    }
+  }
+  // 从命令行参数获取端口（本地开发使用）
   const args = process.argv.slice(2);
   const portIndex = args.indexOf('-p');
   if (portIndex !== -1 && args[portIndex + 1]) {
@@ -12,7 +21,8 @@ function parsePort(): number {
       return port;
     }
   }
-  return 3000;
+  // 默认端口（抖音云 FaaS 平台要求 8000 端口）
+  return 8000;
 }
 
 async function bootstrap() {
@@ -38,12 +48,12 @@ async function bootstrap() {
     console.log(`Server running on http://localhost:${port}`);
   } catch (err) {
     if (err.code === 'EADDRINUSE') {
-      console.error(`❌ 端口 \({port} 被占用! 请运行 'npx kill-port \){port}' 然后重试。`);
+      console.error(`❌ 端口 ${port} 被占用! 请运行 'npx kill-port ${port}' 然后重试。`);
       process.exit(1);
     } else {
       throw err;
     }
   }
-  console.log(`Application is running on: http://localhost:3000`);
+  console.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();
