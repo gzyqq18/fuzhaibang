@@ -22,13 +22,11 @@ export namespace Network {
 
         // 在抖音云环境中，尝试自动获取当前域名
         try {
-            // 获取当前小程序的域名
+            // 获取当前小程序的页面信息
             const pages = Taro.getCurrentPages()
             if (pages.length > 0) {
-                const currentPage = pages[pages.length - 1]
-
-                // 从路由中提取基础 URL（如果有的话）
                 // 抖音小程序环境通常可以直接使用相对路径
+                // 这里可以添加自定义域名提取逻辑（如果需要）
             }
         } catch (e) {
             // 忽略错误，使用默认相对路径
