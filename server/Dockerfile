@@ -45,6 +45,14 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 
+# 创建抖音云平台要求的启动脚本
+RUN echo '#!/bin/sh' > /app/run.sh && \
+    echo 'set -e' >> /app/run.sh && \
+    echo '' >> /app/run.sh && \
+    echo 'cd /app' >> /app/run.sh && \
+    echo 'node dist/main.js' >> /app/run.sh && \
+    chmod +x /app/run.sh
+
 # 创建非 root 用户
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 && \
