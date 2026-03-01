@@ -38,8 +38,9 @@ async function bootstrap() {
 
   // 全局拦截器：统一将 POST 请求的 201 状态码改为 200
   app.useGlobalInterceptors(new HttpStatusInterceptor());
-  // 1. 开启优雅关闭 Hooks (关键!)
-  app.enableShutdownHooks();
+  // 注意：在抖音云 FaaS 环境中，禁用 enableShutdownHooks()，因为可能导致启动卡死
+  // FaaS 平台会自动管理进程生命周期，无需手动监听系统信号
+  // app.enableShutdownHooks();
 
   // 2. 解析端口
   const port = parsePort();
