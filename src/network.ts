@@ -26,8 +26,6 @@ export namespace Network {
             const pages = Taro.getCurrentPages()
             if (pages.length > 0) {
                 const currentPage = pages[pages.length - 1]
-                // @ts-ignore - Taro 内部属性
-                const route = currentPage?.route || ''
 
                 // 从路由中提取基础 URL（如果有的话）
                 // 抖音小程序环境通常可以直接使用相对路径
