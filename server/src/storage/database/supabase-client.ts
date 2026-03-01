@@ -9,22 +9,34 @@ interface SupabaseCredentials {
 }
 
 function loadEnv(): void {
-  if (envLoaded || (process.env.COZE_SUPABASE_URL && process.env.COZE_SUPABASE_ANON_KEY)) {
+  if (envLoaded) {
     return;
   }
 
-  try {
-    try {
-      require('dotenv').config();
-      if (process.env.COZE_SUPABASE_URL && process.env.COZE_SUPABASE_ANON_KEY) {
-        envLoaded = true;
-        return;
-      }
-    } catch {
-      // dotenv not available
-    }
+  // 优先从 process.env 获取环境变量（抖音云 FaaS 环境使用）
+  if (process.env.COZE_SUPABASE_URL && process.env.COZE_SUPABASE_ANON_KEY) {
+    envLoaded = true;
+    return;
+  }
 
-    const pythonCode = `
+  // 尝试从 dotenv 加载环境变量（本地开发使用）
+  try {
+    require('dotenv').config();
+    if (process.env.COZE_SUPABASE_URL && process.env.COZE_SUPABASE_ANON_KEY) {
+      envLoaded = true;
+      return;
+    }
+  } catch {
+    // dotenv not available
+  }
+
+  // 只有在非抖音云环境且环境变量未配置时，才尝试从 coze_workload_identity 获取
+  // 抖音云 FaaS 环境检测：process.env.DY_APP_NAME 或 process.env.FUNCTION_NAME
+  const isDouyinCloud = process.env.DY_APP_NAME || process.env.FUNCTION_NAME;
+
+  if (!isDouyinCloud) {
+    try {
+      const pythonCode = `
 import os
 import sys
 try:
@@ -38,33 +50,34 @@ except Exception as e:
     print(f"# Error: {e}", file=sys.stderr)
 `;
 
-    const output = execSync(`python3 -c '${pythonCode.replace(/'/g, "'\"'\"'")}'`, {
-      encoding: 'utf-8',
-      timeout: 10000,
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
+      const output = execSync(`python3 -c '${pythonCode.replace(/'/g, "'\"'\"'")}'`, {
+        encoding: 'utf-8',
+        timeout: 10000,
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
 
-    const lines = output.trim().split('\n');
-    for (const line of lines) {
-      if (line.startsWith('#')) continue;
-      const eqIndex = line.indexOf('=');
-      if (eqIndex > 0) {
-        const key = line.substring(0, eqIndex);
-        let value = line.substring(eqIndex + 1);
-        if ((value.startsWith("'") && value.endsWith("'")) ||
-            (value.startsWith('"') && value.endsWith('"'))) {
-          value = value.slice(1, -1);
-        }
-        if (!process.env[key]) {
-          process.env[key] = value;
+      const lines = output.trim().split('\n');
+      for (const line of lines) {
+        if (line.startsWith('#')) continue;
+        const eqIndex = line.indexOf('=');
+        if (eqIndex > 0) {
+          const key = line.substring(0, eqIndex);
+          let value = line.substring(eqIndex + 1);
+          if ((value.startsWith("'") && value.endsWith("'")) ||
+              (value.startsWith('"') && value.endsWith('"'))) {
+            value = value.slice(1, -1);
+          }
+          if (!process.env[key]) {
+            process.env[key] = value;
+          }
         }
       }
+    } catch {
+      // Silently fail
     }
-
-    envLoaded = true;
-  } catch {
-    // Silently fail
   }
+
+  envLoaded = true;
 }
 
 function getSupabaseCredentials(): SupabaseCredentials {
