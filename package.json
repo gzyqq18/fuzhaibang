@@ -101,6 +101,12 @@
   "engines": {
     "pnpm": ">=9.0.0"
   },
+  "pnpm": {
+    "overrides": {
+      "better-sqlite3": "npm:@pnpm/no-op@1.0.0",
+      "@types/better-sqlite3": "npm:@pnpm/no-op@1.0.0"
+    }
+  },
   "templateInfo": {
     "name": "default",
     "typescript": true,
