@@ -29,17 +29,54 @@ const ChatPage: FC = () => {
   const handleSearch = async (query: string) => {
     setLoading(true)
     try {
+      console.log('开始搜索，问题:', query)
       const res = await Network.request({
         url: '/api/chat/search',
         method: 'POST',
         data: { question: query }
       })
-      console.log('智能问答结果:', res.data.data)
+      console.log('完整响应:', res)
+      console.log('响应状态码:', res.statusCode)
+      console.log('响应数据:', res.data)
 
-      setAnswer(res.data.data.answer || '')
-      setMatchedContents(res.data.data.matchedContents || [])
+      // 检查响应数据结构
+      if (!res.data) {
+        console.error('响应数据为空')
+        Taro.showToast({
+          title: '服务器响应异常',
+          icon: 'none'
+        })
+        return
+      }
+
+      // 检查业务数据
+      const businessData = res.data.data
+      console.log('业务数据:', businessData)
+
+      if (!businessData) {
+        console.error('业务数据为空')
+        setAnswer('抱歉，暂时无法获取答案，请稍后重试。')
+        setMatchedContents([])
+        return
+      }
+
+      // 提取 answer 和 matchedContents
+      const answerText = businessData.answer || ''
+      const contents = businessData.matchedContents || []
+
+      console.log('答案:', answerText)
+      console.log('匹配内容:', contents)
+
+      setAnswer(answerText)
+      setMatchedContents(contents)
     } catch (error) {
       console.error('搜索失败:', error)
+      console.error('错误详情:', {
+        message: error.message,
+        stack: error.stack
+      })
+      setAnswer('抱歉，网络异常，请检查网络连接后重试。')
+      setMatchedContents([])
       Taro.showToast({
         title: '搜索失败，请重试',
         icon: 'none'

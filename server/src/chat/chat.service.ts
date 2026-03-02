@@ -12,6 +12,8 @@ export class ChatService {
 
   async searchAndAnswer(question: string) {
     try {
+      console.log('开始智能问答，问题:', question)
+
       // 1. 从知识库中搜索相关内容
       const client = getSupabaseClient()
       const { data: matchedContents, error: searchError } = await client
@@ -24,6 +26,8 @@ export class ChatService {
       if (searchError) {
         console.error('搜索内容失败:', searchError)
       }
+
+      console.log('搜索到的内容数量:', matchedContents?.length || 0)
 
       // 2. 构建知识库上下文
       let knowledgeContext = ''
@@ -50,18 +54,24 @@ export class ChatService {
         { role: 'user' as const, content: question }
       ]
 
+      console.log('开始调用 LLM...')
       const llmResponse = await this.llmClient.invoke(messages, {
         temperature: 0.7
       })
+      console.log('LLM 响应:', llmResponse)
 
       // 4. 计算匹配度（简化版，实际可以使用更复杂的相似度算法）
-      const contentWithRelevance = (matchedContents || []).map(content => ({
-        id: content.id,
-        title: content.title,
-        preview: content.preview,
-        category: this.getCategoryName(content.category_id),
-        relevance: this.calculateRelevance(question, content.title)
-      }))
+      const contentWithRelevance = await Promise.all(
+        (matchedContents || []).map(async (content) => ({
+          id: content.id,
+          title: content.title,
+          preview: content.preview,
+          category: await this.getCategoryName(content.category_id),
+          relevance: this.calculateRelevance(question, content.title)
+        }))
+      )
+
+      console.log('处理后的匹配内容:', contentWithRelevance)
 
       return {
         answer: llmResponse.content,
@@ -69,7 +79,16 @@ export class ChatService {
       }
     } catch (error) {
       console.error('智能问答失败:', error)
-      throw new Error(`智能问答失败: ${error.message}`)
+      console.error('错误详情:', {
+        message: error.message,
+        stack: error.stack
+      })
+
+      // 返回友好的错误信息
+      return {
+        answer: '抱歉，暂时无法回答您的问题。请稍后重试，或者尝试使用其他问题。',
+        matchedContents: []
+      }
     }
   }
 
@@ -89,23 +108,29 @@ export class ChatService {
   }
 
   private calculateRelevance(question: string, title: string): number {
-    // 简化的相似度计算
+    // 简化的相似度计算 - 使用关键词匹配
     const questionLower = question.toLowerCase()
     const titleLower = title.toLowerCase()
 
-    // 检查标题中是否包含问题中的关键词
-    const keywords = questionLower.split('').filter(c => c.trim())
-    let matchCount = 0
+    // 提取关键词（按空格或标点分割）
+    const keywords = questionLower
+      .split(/[\s，。？！、；：""'']/)
+      .filter(k => k.length > 1) // 忽略单个字符
 
+    if (keywords.length === 0) {
+      return 50 // 默认匹配度
+    }
+
+    let matchCount = 0
     keywords.forEach(keyword => {
       if (titleLower.includes(keyword)) {
         matchCount++
       }
     })
 
-    const relevance = Math.min(Math.round((matchCount / Math.max(keywords.length, 1)) * 100), 100)
+    const relevance = Math.min(Math.round((matchCount / keywords.length) * 100), 100)
 
-    // 至少返回 50% 的匹配度，保证有内容展示
-    return Math.max(relevance, 50)
+    // 至少返回 30% 的匹配度，保证有内容展示
+    return Math.max(relevance, 30)
   }
 }
