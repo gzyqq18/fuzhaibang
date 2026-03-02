@@ -2,6 +2,15 @@
 
 这是一个基于 [Taro 4](https://docs.taro.zone/docs/) + [Nest.js](https://nestjs.com/) 的前后端分离项目，由扣子编程 CLI 创建。
 
+## 🚨 抖音云部署必读
+
+**如果您正在部署到抖音云，请先阅读 [抖音云配置指南](DOUYIN_CLOUD_SETUP.md)！**
+
+关键配置项：
+- ✅ 后端服务已部署到抖音云
+- ⚠️ 需要配置 `.env.local` 中的 `PROJECT_DOMAIN`
+- ⚠️ 需要在小程序后台配置服务器域名白名单
+
 ## 👋 新手入门
 
 如果你是第一次接触这个项目，或者对命令行操作不太熟悉，请从 **[新手入门指南](README_NEWBIE.md)** 开始！
