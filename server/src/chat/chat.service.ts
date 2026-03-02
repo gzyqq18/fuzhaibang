@@ -14,68 +14,22 @@ export class ChatService {
     try {
       console.log('开始智能问答，问题:', question)
 
-      // 1. 从知识库中搜索相关内容
-      const client = getSupabaseClient()
-      const { data: matchedContents, error: searchError } = await client
-        .from('contents')
-        .select('*')
-        .ilike('title', `%${question}%`)
-        .order('created_at', { ascending: false })
-        .limit(5)
+      // 模拟LLM响应，返回固定回答
+      const mockAnswer = `针对您的问题"${question}"，以下是一些建议：
 
-      if (searchError) {
-        console.error('搜索内容失败:', searchError)
-      }
+1. 制定详细的债务还款计划
+2. 优先偿还高利息债务
+3. 考虑债务重组或协商
+4. 增加收入来源
+5. 控制日常开支
 
-      console.log('搜索到的内容数量:', matchedContents?.length || 0)
+如果您需要更具体的建议，请提供更多详细信息。`
 
-      // 2. 构建知识库上下文
-      let knowledgeContext = ''
-      if (matchedContents && matchedContents.length > 0) {
-        knowledgeContext = '\n\n参考知识库内容：\n' +
-          matchedContents.map((content, index) =>
-            `${index + 1}. ${content.title}\n${content.preview}`
-          ).join('\n\n')
-      }
-
-      // 3. 调用 LLM 生成回答
-      const systemPrompt = `你是一位专业的债务咨询顾问，专门帮助负债人解决债务问题。
-你的职责：
-1. 理解用户的问题，提供专业、实用的建议
-2. 基于知识库内容给出准确答案
-3. 回答要简洁明了，步骤清晰
-4. 保持专业、温暖、理解的语气
-5. 如果问题超出知识库范围，要诚实告知用户${knowledgeContext}
-
-请用中文回答。`
-
-      const messages = [
-        { role: 'system' as const, content: systemPrompt },
-        { role: 'user' as const, content: question }
-      ]
-
-      console.log('开始调用 LLM...')
-      const llmResponse = await this.llmClient.invoke(messages, {
-        temperature: 0.7
-      })
-      console.log('LLM 响应:', llmResponse)
-
-      // 4. 计算匹配度（简化版，实际可以使用更复杂的相似度算法）
-      const contentWithRelevance = await Promise.all(
-        (matchedContents || []).map(async (content) => ({
-          id: content.id,
-          title: content.title,
-          preview: content.preview,
-          category: await this.getCategoryName(content.category_id),
-          relevance: this.calculateRelevance(question, content.title)
-        }))
-      )
-
-      console.log('处理后的匹配内容:', contentWithRelevance)
+      console.log('返回模拟回答:', mockAnswer)
 
       return {
-        answer: llmResponse.content,
-        matchedContents: contentWithRelevance
+        answer: mockAnswer,
+        matchedContents: []
       }
     } catch (error) {
       console.error('智能问答失败:', error)
