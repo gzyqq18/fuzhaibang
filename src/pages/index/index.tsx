@@ -18,7 +18,12 @@ interface HotQuestion {
 
 const IndexPage: FC = () => {
   const [searchText, setSearchText] = useState('')
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categories, setCategories] = useState<Category[]>([
+    { id: 1, name: '债务管理', icon: '💰', sort_order: 1 },
+    { id: 2, name: '心理疏导', icon: '🧠', sort_order: 2 },
+    { id: 3, name: '法律知识', icon: '⚖️', sort_order: 3 },
+    { id: 4, name: '资源导航', icon: '📋', sort_order: 4 }
+  ])
   const [quickTags] = useState([
     '信用卡逾期',
     '网贷处理',
@@ -38,22 +43,25 @@ const IndexPage: FC = () => {
 
   const loadCategories = async () => {
     try {
+      console.log('开始加载分类列表...')
       const res = await Network.request({
         url: '/api/knowledge/categories'
       })
-      console.log('分类列表:', res.data.data)
-      setCategories(res.data.data || [])
+      console.log('分类接口响应:', res)
+      console.log('分类数据:', res.data.data)
+
+      const categoriesData = res.data.data || []
+      console.log('处理后的分类数量:', categoriesData.length)
+
+      if (categoriesData.length > 0) {
+        setCategories(categoriesData)
+      } else {
+        console.log('分类数据为空，使用默认分类')
+      }
     } catch (error) {
       console.error('加载分类失败:', error)
-      // Fallback：使用硬编码的分类数据
-      const fallbackCategories = [
-        { id: 1, name: '债务管理', icon: '💰', sort_order: 1 },
-        { id: 2, name: '心理疏导', icon: '🧠', sort_order: 2 },
-        { id: 3, name: '法律知识', icon: '⚖️', sort_order: 3 },
-        { id: 4, name: '资源导航', icon: '📋', sort_order: 4 }
-      ]
-      console.log('使用备用分类数据:', fallbackCategories)
-      setCategories(fallbackCategories)
+      console.log('使用默认分类数据')
+      // 保持默认分类数据，不重新设置
     }
   }
 
